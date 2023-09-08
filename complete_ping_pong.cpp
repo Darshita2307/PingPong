@@ -1,12 +1,17 @@
+// step1: We are including all the libraries and initializing the variables like on line 18
+//STEP2: Calling setup//in this we are making boundary of the initial window and greeting the player
 
-#include<math.h>
-#include<graphics.h>
-#include<time.h>
-#include<windows.h>
+#include<math.h> // header file declares a set of functions to perform mathematical operations such as: sqrt() to calculate the square root, All the functions available in this library take double as an argument and return double as the result.
+
+#include<graphics.h> // In C graphics, the graphics. h functions are used to draw different shapes like circles, rectangles, etc, display text(any message) in a different format (different fonts and colors). By using the functions in the header graphics. h, programs, animations, and different games can also be made.
+
+#include<time.h> //contains definitions of functions to get and manipulate date and time information.
+
+#include<windows.h> //used to access the Win32 API functions and it makes it easier for the user to use the in-built functionality. 
 #include<stdio.h>
 #include<stdlib.h>
 #include<iostream>
-#include<direct.h>
+#include<direct.h> // C/C++ header file provided by Microsoft Windows, which contains functions for manipulating file system directories. 
 
 using namespace std;
 
@@ -14,16 +19,17 @@ int width=800,height=600,page =0,r=6,boun=30, leftscore=0,rightscore=0,speed = 1
 
     void end()
     {
-        initwindow(width,height,"");
-    setfillstyle(1,12);
-    bar(0,0,width,boun);
+        initwindow(width,height,""); //https://home.cs.colorado.edu/~main/bgi/doc/initwindow.html
+    setfillstyle(1,12); //sets the current fill pattern and fill color. https://www.geeksforgeeks.org/setfillstyle-floodfill-c/
+    bar(0,0,width,boun); //makes a rect// left,top,ri,bott
      bar(0,0,boun,height);
      bar(0,height,width,height-boun);
      bar(width-boun,boun,width,height+boun);
     if(leftscore>rightscore)
     {
-        settextstyle(DEFAULT_FONT,HORIZ_DIR,4);
-        outtextxy(100,height/2-100,"Player 1 wins");
+        settextstyle(DEFAULT_FONT,HORIZ_DIR,4); //change the way in which text appears. Using it we can modify the size of text, change direction of text and change the font of text. 
+        
+        outtextxy(100,height/2-100,"Player 1 wins"); //displays the text or string at a specified point (x, y) on the screen.
     }
     else if(leftscore<rightscore){
 
@@ -61,10 +67,11 @@ class Paddle
     public:
     float x=10,y=height/2-60,w=x+10,h=height/2+60;
 
-    Paddle(boolean left)
+    Paddle(boolean left) //constructor
     {
         if(left)
         {
+            
             x = 5;
         }
         else{x=width;}
@@ -75,7 +82,7 @@ class Paddle
 
     void move(float steps)
     {
-        int dif = h-y;
+        int dif = h-y; //height of paddle
         y+=2*steps;
         h+=2*steps;
 
@@ -192,9 +199,20 @@ int main()
 
 
  setup();
+    //The setup() function is run once, when the program starts. It's used to define initial environment properties such as screen size and to load media such as images and fonts as the program starts. There can only be one setup() function for each program, and it shouldn't be called again after its initial execution.
+
 srand(time(NULL));
-Puck puck;
+// makes use of the computer's internal clock to control the choice of the seed.  Since time is continually changing, the seed is forever changing.  Remember, if the seed number remains the same, the sequence of numbers will be repeated for each run of the program.
+
+//What is normally called a random number sequence in reality is a "pseudo-random" number sequence because the values are computed using a deterministic algorithm and probability plays no real role.
+The "seed" is a starting point for the sequence and the guarantee is that if you start from the same seed you will get the same sequence of numbers. This is very useful for example for debugging (when you are looking for an error in a program you need to be able to reproduce the problem and study it, a non-deterministic program would be much harder to debug because every run would be different).
+If you need just a random sequence of numbers and don't need to reproduce it then simply use current time as seed... for example with:
+
+    // srand(10); seed=10 here.
+
+  Puck puck;  
 //Paddle object;
+
 Paddle left(true);
 Paddle right(false);
 
